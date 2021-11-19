@@ -41,15 +41,10 @@ app.post("/api/register", (req, res) => {
                 }
             })
         }, 5000);
-    });
-    myPromise.then(
+    }).then(
         function (value) {
             return res.send(value);
-        },
-        function (assignvalue) {
-            return res.send(assignvalue);
-        });
-    myPromise.catch(
+        }).catch(
         function (err) {
             return res.send(err);
         }
