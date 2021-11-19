@@ -18,7 +18,7 @@ db.connect(function (err) {
 app.use(cors());
 app.use(express.json());
 
-//----------- register api using promise  ------------
+//----------- register api using promise  -----------------------------
 app.post("/api/register", (req, res) => {
     const firstname = req.body.firstname;
     const lastname = req.body.lastname;
@@ -30,7 +30,7 @@ app.post("/api/register", (req, res) => {
     let myPromise = new Promise(function (myResolve, myReject) {
         const timeobj = setTimeout(() => {
             db.query("SELECT * FROM regtable WHERE email = ?", [email], (req, result) => {
-                
+
 
                 if (result.length > 0) {
                     myResolve({ message: "user already exists,Please Login" });
@@ -44,7 +44,7 @@ app.post("/api/register", (req, res) => {
     });
     myPromise.then(
         function (value) {
-           return res.send(value);
+            return res.send(value);
         },
         function (assignvalue) {
             return res.send(assignvalue);
