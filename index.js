@@ -54,8 +54,6 @@ app.post("/api/register", (req, res) => {
             return res.send(err);
         }
     )
-
-
 });
 
 // ----------------until here---------------------------------
@@ -159,8 +157,6 @@ app.post("/api/update", (req, res) => {
             return res.send({ message: "Please,Enter the correct email" });
         }
     })
-
-
 });
 
 // ------------------untill here---------------------------------------
