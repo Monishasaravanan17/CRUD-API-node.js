@@ -30,11 +30,13 @@ app.post("/api/register", (req, res) => {
     let myPromise = new Promise(function (myResolve, myReject) {
         const timeobj = setTimeout(() => {
             db.query("SELECT * FROM regtable WHERE email = ?", [email], (req, result) => {
+                
+
                 if (result.length > 0) {
-                    myResolve("user already exists,Please Login");
+                    myResolve({ message: "user already exists,Please Login" });
                 } else {
                     db.query("INSERT INTO regtable (firstname,lastname,email,password) VALUES (?,?,?,?)", [firstname, lastname, email, encryptedPassword], (req, res) => {
-                        myReject("Registered Successfully");
+                        myReject({ message: "Registered Successfully" });
                     })
                 }
             })
@@ -42,16 +44,21 @@ app.post("/api/register", (req, res) => {
     });
     myPromise.then(
         function (value) {
-            res.send(value);
+           return res.send(value);
         },
-        function (error) {
-            res.send(error);
+        function (assignvalue) {
+            return res.send(assignvalue);
+        });
+    myPromise.catch(
+        function (err) {
+            return res.send(err);
         }
+    )
 
-    );
+
 });
 
-// ----------------until here--------------
+// ----------------until here---------------------------------
 
 
 // -----------------without promise register api--------------
@@ -91,7 +98,7 @@ app.post("/api/register", (req, res) => {
 // ---------------------------untill here------------------------
 
 
-
+// ------------login API-----------------------------------------
 
 app.post("/api/login", (req, res) => {
     const email = req.body.email;
@@ -124,6 +131,10 @@ app.post("/api/login", (req, res) => {
     })
 });
 
+// -------------------------untill here----------------------------------
+
+//--------------------update API-----------------------------------------
+
 app.post("/api/update", (req, res) => {
     const firstname = req.body.firstname;
     const lastname = req.body.lastname;
@@ -150,7 +161,11 @@ app.post("/api/update", (req, res) => {
     })
 
 
-})
+});
+
+// ------------------untill here---------------------------------------
+
+// --------------delete API--------------------------------------------
 
 app.post("/api/delete", (req, res) => {
 
@@ -175,6 +190,8 @@ app.post("/api/delete", (req, res) => {
         }
     })
 })
+
+// -----------------------------untill here----------------------------------------
 
 app.listen(3000, () => {
     console.log("running port...")
