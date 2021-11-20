@@ -45,10 +45,10 @@ app.post("/api/register", (req, res) => {
         function (value) {
             return res.send(value);
         }).catch(
-        function (err) {
-            return res.send(err);
-        }
-    )
+            function (err) {
+                return res.send(err);
+            }
+        )
 });
 
 // ----------------until here---------------------------------
@@ -109,18 +109,17 @@ app.post("/api/login", (req, res) => {
                 if (success) {
                     return res.send({ message: "login successfully", result: result });
                 } else {
-                    return res.send({ message: "Please,enter the correct password" });
+                    return res.send({ message: "Oops your password was incorrect" });
                 }
 
             }).catch((failed) => {
-                return res.send({ message: "Something wrong" });
+                return res.send({ message: "Oops...Something went wrong" });
             })
 
 
         } else {
             return res.send({ message: "invalid email,please register" });
         }
-
     })
 });
 
@@ -145,8 +144,6 @@ app.post("/api/update", (req, res) => {
                 }
 
                 return res.send({ message: "updated successfully" });
-
-
             })
         } else {
             return res.send({ message: "Please,Enter the correct email" });
@@ -173,11 +170,9 @@ app.post("/api/delete", (req, res) => {
                 }
 
                 return res.send({ message: "Deleted successfully" });
-
-
             })
         } else {
-            return res.send({ message: "Please,Enter a correct email id" });
+            return res.send({ message: "Oops....invalid mailId" });
         }
     })
 })
